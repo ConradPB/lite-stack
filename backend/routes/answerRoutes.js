@@ -1,18 +1,14 @@
 const express = require('express')
 const router = express.Router()
+const { 
+    fetchAnswer, 
+    addAnswer, 
+    updateAnswer, 
+    deleteAnswer } = require('../controllers/answerController')
 
-
-router.get('/', (req,res) => {
-    res.status(200).json({message: 'Fetch all answers'})}) 
+router.route('/').get(fetchAnswer) 
         
-router.post('/:id', (req,res) => {
-    res.status(200).json({message: `Add answer ${req.params.id}`})})            
-
-router.put('/:id', (req,res) => {
-    res.status(200).json({message: `Update answer ${req.params.id}`})})                
-
-router.delete('/:id', (req,res) => {
-    res.status(200).json({message: `Delete answer ${req.params.id}`})})
+router.route('/:id').post(addAnswer).put(updateAnswer).delete(deleteAnswer)            
 
 
 
