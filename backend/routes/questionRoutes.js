@@ -8,6 +8,8 @@ const {
     deleteQuestion, 
     updateQuestion } = require('../controllers/questionController')
 
+
+
 router.route('/:id').get(fetchQuestion).post(addQuestion).put(updateQuestion).delete(deleteQuestion)
 
 
