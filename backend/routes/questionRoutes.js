@@ -3,14 +3,13 @@ const router = express.Router()
 const { 
     fetchQuestion, 
     fetchQuestions, 
-    addQuestion, 
     addQuestions, 
     deleteQuestion, 
     updateQuestion } = require('../controllers/questionController')
 
 
 
-router.route('/:id').get(fetchQuestion).post(addQuestion).put(updateQuestion).delete(deleteQuestion)
+router.route('/:id').get(fetchQuestion).put(updateQuestion).delete(deleteQuestion)
 
 
 router.route('/').get(fetchQuestions).post(addQuestions)

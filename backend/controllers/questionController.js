@@ -5,7 +5,7 @@ const { test } = require("express")
 let Questions = [
     {id: 1, question: 'Why is the sky blue?', order: 1, completed: true, createdOn: new Date()},
     {id: 2, question: 'cest quelle heure ?', order: 2, completed: true, createdOn: new Date()},
-    {id: 3, question: 'Dónde está la piscina', order: 3, completed: true, createdOn: new Date()},
+    {id: 3, question: '¿Dónde está la piscina?', order: 3, completed: true, createdOn: new Date()},
     {id: 4, question: 'unafanya nini?', order: 4, completed: true, createdOn: new Date()},
     {id: 5, question: 'Emmele eli wa?', order: 5, completed: false, createdOn: new Date()},
     {id: 6, question: 'Est-ce qu’elles ont mangé ?', order: 6, completed: false, createdOn: new Date()},
@@ -32,14 +32,6 @@ const fetchQuestion = (req,res) => {
 //@access   Private
 const fetchQuestions = (req,res) => {
     res.status(200).json(Questions)
-}
-
-//@desc     Post question / add an object to questions array
-//@route    POST /api/question
-//@access   Private
-const addQuestion = (req,res) => {
-  
-    res.status(201).json(newQuestion)
 }
 
 //@desc     Post all questions
@@ -141,7 +133,6 @@ const deleteQuestion = (req,res) => {
 module.exports = {
     fetchQuestion,
     fetchQuestions,
-    addQuestion,
     addQuestions,
     updateQuestion,
     deleteQuestion 
