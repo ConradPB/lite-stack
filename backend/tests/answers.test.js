@@ -4,7 +4,7 @@ const app = require('../server')
 //when I call /questions with HTTP GET, I should get back an array 
 //which has an abject that has a shape with a name thats a string and completed as a string
 describe('Questions API', () => {
-    it('GET / --> fetch all questions', () => {
+    it('GET / --> fetch all answers', () => {
         request(app)
             .get('/')
             .expect('Content-Type', /json/)
@@ -23,9 +23,9 @@ describe('Questions API', () => {
             ))
 
         })
-    it('GET /id --> fetch specific question by ID', () => {
+    it('GET /id --> fetch specific answer by ID', () => {
         request(app)
-                .get('/.questions/:id')
+                .get('/.answers/:id')
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then((response) => 
@@ -43,15 +43,15 @@ describe('Questions API', () => {
     
     it('GET /:id --> 404 if not found', () => {
          request(app)
-                .get('/questions/56654')
+                .get('/answers/56654')
                 .expect(404)
         
             })     
     
-    it('POST /Send Questions --> Add all questions', () => {
+    it('POST /Send Answers --> Add all answers', () => {
         request(app)
-                    .post('/questions')
-                    .send({ question: 'Dondes es la cerveza??' })
+                    .post('/answers')
+                    .send({ answer: 'Dondes es la cerveza??' })
                     .expect('Content-Type', /json/)
                     .expect(201)
                     .then((response) => 
@@ -60,22 +60,22 @@ describe('Questions API', () => {
                         id: expect.any(Number),
                         order: expect.any(Number),
                         date: expect.any(Number),
-                        question: 'Dondes es la cerveza??',
+                        answer: 'Dondes es la cerveza??',
                         completed: false,
                     })
                 ))
         
             })
     it('POST /Questions --> Validates all questions', () => {
-        request(app).post('/questions').send({ question: 6755 }).expect(404)
+        request(app).post('/questions').send({ answer: 6755 }).expect(404)
         
             })     
    
-    it('PUT/ UPDATE /:id --> fetch specific question by ID', () => {
+    it('PUT/ UPDATE /:id --> fetch specific answer by ID', () => {
         request(app)
-                .put('/update/questions/:id')
+                .put('/update/answer/:id')
                 .expect('Content-Type', /json/)
-                .send({ question: 'Updated' })
+                .send({ answer: 'Updated' })
                 .expect(200)
                 .then((response) => 
                 expect(response.body).toEqual(
@@ -90,11 +90,11 @@ describe('Questions API', () => {
     
             })
     
-    it('PUT/ UPDATE /:id --> fetch specific question by ID', () => {
+    it('PUT/ UPDATE /:id --> fetch specific answer by ID', () => {
         request(app)
-                .put('/update/questions/:id')
+                .put('/update/answers/:id')
                 .expect('Content-Type', /json/)
-                .send({ question: 'Updated' })
+                .send({ answer: 'Updated' })
                 .expect(200)
                 .then((response) => 
                 expect(response.body).toEqual(
@@ -109,11 +109,11 @@ describe('Questions API', () => {
              })
 
         
-    it('DELETE/ UPDATE /:id --> fetch specific question by ID', () => {
+    it('DELETE/ UPDATE /:id --> fetch specific answer by ID', () => {
         request(app)
-                .delete('/update/questions/:id')
+                .delete('/update/answers/:id')
                 .expect('Content-Type', /json/)
-                .send({ question: 'Deleted' })
+                .send({ answer: 'Deleted' })
                 .expect(200)
                 .then((response) => 
                 expect(response.body).toEqual(

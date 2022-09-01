@@ -37,6 +37,9 @@ const fetchQuestions = (req,res) => {
 //@route    POST /api/question
 //@access   Private
 const addQuestions = (req,res) => {
+
+    
+
       // get questionIds from questions array
       let questionIds = Questions.map(question => question.id)
 
@@ -57,6 +60,8 @@ const addQuestions = (req,res) => {
           completed: false, //default value is set to false
           createdOn: new Date() // new date object
       }
+
+    
   
   
       // lets push the new question object to the questions array
@@ -77,6 +82,8 @@ const addQuestions = (req,res) => {
 const updateQuestion = (req,res) => {
     // get the question object matched by its 'id'
     let found = Questions.find(question => question.id === parseInt(req.params.id))
+
+    
 
     // check if the question is found
     if(found) {
