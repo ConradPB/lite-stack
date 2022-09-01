@@ -1,5 +1,4 @@
 
-const { test } = require("express")
 
 // Json questions array
 let Questions = [
