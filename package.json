@@ -4,8 +4,8 @@
   "description": "backend for challenge app",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "main": "nodemon backend/server.js",
+    "start": "node backend/main.js",
+    "main": "nodemon backend/main.js",
     "test": "jest --watchAll --detectOpenHandles"
   },
   "repository": {
