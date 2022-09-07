@@ -1,10 +1,11 @@
 const asyncHandler = require('express-async-handler')
-
+const Question = require('../models/questionModel')
 
 //@desc     Get question
 //@route    GET /api/question
 //@access   Private
-const fetchQuestion = asyncHandler(async (req,res) => {    
+const fetchQuestion = asyncHandler(async (req,res) => {
+    
     res.status(200).json({message: `Fetch question ${req.params.id}`})
 })
 
@@ -12,7 +13,9 @@ const fetchQuestion = asyncHandler(async (req,res) => {
 //@route    GET /api/question
 //@access   Private
 const fetchQuestions = asyncHandler(async (req,res) => {
-    res.status(200).json({message: 'Fetch all questions'})
+    const questions = await Question.find()
+
+    res.status(200).json(questions)
 })
 
 //@desc     Post question
@@ -31,7 +34,11 @@ const addQuestions = asyncHandler(async (req,res) => {
         throw new Error('please add some info in the field')
     }
 
-    res.status(200).json({ message: 'Add all questions' })
+    const question = await Question.create({
+        text: req.body.text,
+    })
+
+    res.status(200).json(question)
 })
 
 
@@ -39,14 +46,32 @@ const addQuestions = asyncHandler(async (req,res) => {
 //@route    PUT /api/question
 //@access   Private
 const updateQuestion = asyncHandler(async (req,res) => {
-    res.status(200).json({message: `Update question ${req.params.id}`})
-})
+    const question = await Question.findById(req.params.id)
+
+    if(!question) {
+        res.status(400)
+        throw new Error('Question not found')
+    }
+
+    const updatedQuestion = await Question.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+    })
+    res.status(200).json(updatedQuestion)
+})                                    
 
 //@desc     Delete question
 //@route    DELETE /api/question
 //@access   Private
 const deleteQuestion = asyncHandler(async (req,res) => {
-    res.status(200).json({message: `Delete question ${req.params.id}`})
+    const question = await Question.findById(req.params.id)
+
+    if(!question) {
+        res.status(400)
+        throw new Error('Question not found')
+    }
+
+    await question.remove()
+    res.status(200).json({ id: req.params.id })
 })
 
 module.exports = {
