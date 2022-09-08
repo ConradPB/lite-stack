@@ -2,4 +2,4 @@
 ![Jokes Card](https://readme-jokes.vercel.app/api)
 
 
-![Your Repository's Stats](https://github-readme-stats.vercel.app/api/top-langs/?
+![Your Repository's Stats](https://github-readme-stats.vercel.app/api/top-langs/?username=G-rizz&theme=blue-green) 
