@@ -6,9 +6,9 @@ const {
     updateAnswer, 
     deleteAnswer } = require('../controllers/answerController')
 
-router.route('/').get(fetchAnswer) 
+router.route('/').get(fetchAnswer) .post(addAnswer)
         
-router.route('/:id').post(addAnswer).put(updateAnswer).delete(deleteAnswer)            
+router.route('/:id').put(updateAnswer).delete(deleteAnswer)            
 
 
 

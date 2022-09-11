@@ -26,7 +26,7 @@ const addQuestions = asyncHandler(async (req,res) => {
 //we check for the text. If it aint there we throw error
     if (!req.body.text) {
         res.status(400)
-        throw new Error('please add some info in the field')
+        throw new Error('please add a question')
     }
 //if text is found we use create method to create question
     const question = await Question.create({
