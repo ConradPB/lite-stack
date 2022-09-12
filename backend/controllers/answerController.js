@@ -19,7 +19,6 @@ const addAnswer = asyncHandler(async(req,res) => {
         res.status(400)
         throw new Error('please add an answer')
     }
-//if text is found we use create method to create question
     const answer = await Answer.create({
         text: req.body.text,
     })
