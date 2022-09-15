@@ -16,5 +16,8 @@ app.use('/api/questions', require('./routes/questionRoutes'))
 
 app.use('/api/answers', require('./routes/answerRoutes'))
 
+app.use('/api/users', require('./routes/userRoutes'))
+
+
 app.use(errorHandler)
 app.listen(port, () => console.log(`Its hot on port: ${port}`))

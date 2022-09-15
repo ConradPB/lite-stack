@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler')
 const Question = require('../models/questionModel')
 
 //@desc     Get question
-//@route    GET /api/question
+//@route    GET /api/questions
 //@access   Private
 const fetchQuestion = asyncHandler(async (req,res) => {
     
@@ -10,7 +10,7 @@ const fetchQuestion = asyncHandler(async (req,res) => {
 })
 
 //@desc     Get questions
-//@route    GET /api/question
+//@route    GET /api/questions
 //@access   Private
 const fetchQuestions = asyncHandler(async (req,res) => {
 //use find method by somethin e.g user object. here we get all
@@ -20,7 +20,7 @@ const fetchQuestions = asyncHandler(async (req,res) => {
 })
 
 //@desc     Post all questions
-//@route    POST /api/question
+//@route    POST /api/questions
 //@access   Private
 const addQuestions = asyncHandler(async (req,res) => {
 //we check for the text. If it aint there we throw error
@@ -38,7 +38,7 @@ const addQuestions = asyncHandler(async (req,res) => {
 
 
 //@desc     Update question
-//@route    PUT /api/question
+//@route    PUT /api/questions
 //@access   Private
 const updateQuestion = asyncHandler(async (req,res) => {
 //we first find the question we need to update using the findById method
@@ -58,7 +58,7 @@ const updateQuestion = asyncHandler(async (req,res) => {
 })                                    
 
 //@desc     Delete question
-//@route    DELETE /api/question
+//@route    DELETE /api/questions
 //@access   Private
 const deleteQuestion = asyncHandler(async (req,res) => {
 //to delete a question we first find the question we want to delete 
