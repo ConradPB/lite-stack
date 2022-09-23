@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const Question = require('../models/questionModel')
+const User = require('../models/userModel')
 
 //@desc     Get question
 //@route    GET /api/questions
@@ -14,7 +15,7 @@ const fetchQuestion = asyncHandler(async (req,res) => {
 //@access   Private
 const fetchQuestions = asyncHandler(async (req,res) => {
 //use find method by somethin e.g user object. here we get all
-    const questions = await Question.find()
+    const questions = await Question.find({ user: req.user.id })
 
     res.status(200).json(questions)
 })
@@ -31,6 +32,7 @@ const addQuestions = asyncHandler(async (req,res) => {
 //if text is found we use create method to create question
     const question = await Question.create({
         text: req.body.text,
+        user: req.user.id
     })
 
     res.status(200).json(question)
@@ -49,6 +51,20 @@ const updateQuestion = asyncHandler(async (req,res) => {
         res.status(400)
         throw new Error('Question not found')
     }
+//Lets get the user
+const user = await User.findById(req.user.id)
+
+//Check for user
+if(!user) {
+res.status(400)
+throw new Error('User not found')
+}
+
+//Make sure the logged in user matches the question user
+if(question.user.toString() !== user.id) {
+    res.status(400)
+    throw new Error('User not authorized')
+}
 
 //to update a question we use the findByIdAndUpdate method and pass in our id and 2 other arguments
     const updatedQuestion = await Question.findByIdAndUpdate(req.params.id, req.body, {
@@ -69,6 +85,22 @@ const deleteQuestion = asyncHandler(async (req,res) => {
         res.status(400)
         throw new Error('Question not found')
     }
+
+//Lets get the user
+const user = await User.findById(req.user.id)
+
+//Check for user
+if(!user) {
+res.status(400)
+throw new Error('User not found')
+}
+
+//Make sure the logged in user matches the question user
+if(question.user.toString() !== user.id) {
+    res.status(400)
+    throw new Error('User not authorized')
+}
+
 //After the question is found we use the remove method to delete it
 //no need to store it in a variable because it wont exist
     await question.remove()

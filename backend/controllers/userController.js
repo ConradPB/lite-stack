@@ -23,7 +23,7 @@ const registerUser = asyncHandler(async(req,res)  =>  {
 
     if (userExists) {
         res.status(400)
-        throw new error('User already exists')
+        throw new Error('User already exists')
     }
 
     //Hash the password (we do that by first creating a salt)
@@ -88,9 +88,15 @@ const generateToken = (id) => {
 //@desc     Get user data
 //@route    GET /api/users/me 
 //(Gets current logged in users Id coz we will be sending a token from which we get the id)
-//@access   Public
+//@access   Private
 const getMe = asyncHandler(async(req,res)  =>  {
-    res.json({ message: 'Display user data' })
+    const {_id, name, email} = await User.findById(req.user.id)
+
+    res.status(200).json({
+        id: _id,
+        name,
+        email,
+    })
 })
 
 

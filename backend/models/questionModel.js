@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const questionSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        requited: true,
-        //we need to know which model this onject ID works with which is use
+        required: true,
+        //we need to know which model this object ID works with which is use
         ref:'Usef'
     },
     text: {

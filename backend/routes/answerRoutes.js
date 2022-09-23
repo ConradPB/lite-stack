@@ -6,9 +6,11 @@ const {
     updateAnswer, 
     deleteAnswer } = require('../controllers/answerController')
 
-router.route('/').get(fetchAnswer) .post(addAnswer)
+const { protect } = require('../middleware/authMiddleware')
+
+router.route('/').get(protect, fetchAnswer) .post(protect, addAnswer)
         
-router.route('/:id').put(updateAnswer).delete(deleteAnswer)            
+router.route('/:id').put(protect, updateAnswer).delete(protect, deleteAnswer)            
 
 
 
