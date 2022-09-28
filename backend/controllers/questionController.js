@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const Question = require('../models/questionModel')
 const User = require('../models/userModel')
+const Answer = require('../models/answerModel')
 
 //@desc     Get question
 //@route    GET /api/questions
@@ -13,23 +14,24 @@ const fetchQuestion = asyncHandler(async (req,res) => {
 //@desc     Get questions
 //@route    GET /api/questions
 //@access   Private
-const fetchQuestions = asyncHandler(async (req,res) => {
+const fetchQuestions = asyncHandler(async (req,res) => { 
 //use find method by somethin e.g user object. here we get all
-    const questions = await Question.find({ user: req.user.id })
+    const questions = await Question.find({ user: req.user._id }) 
+     
 
-    res.status(200).json(questions)
+    res.status(200).json(questions, answers)
 })
 
-//@desc     Post all questions
+//@desc     Post all questions 
 //@route    POST /api/questions
 //@access   Private
-const addQuestions = asyncHandler(async (req,res) => {
+const addQuestions = asyncHandler(async (req,res) => { 
 //we check for the text. If it aint there we throw error
     if (!req.body.text) {
         res.status(400)
-        throw new Error('please add a question')
+        throw new Error('please add a question') 
     }
-//if text is found we use create method to create question
+//if text is found we use create method to create question  
     const question = await Question.create({
         text: req.body.text,
         user: req.user.id

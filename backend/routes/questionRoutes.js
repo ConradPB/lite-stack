@@ -9,7 +9,7 @@ const {
 
 const {protect} = require('../middleware/authMiddleware')
 
-router.route('/:id').get(fetchQuestion).put(protect, updateQuestion).delete(protect, deleteQuestion)
+router.route('/:id').get(protect, fetchQuestion).put(protect, updateQuestion).delete(protect, deleteQuestion)
 
 
 router.route('/').get(protect, fetchQuestions).post(protect, addQuestions)

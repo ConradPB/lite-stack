@@ -5,8 +5,7 @@ const Answer = require('../models/answerModel')
 //@route    GET /api/answer
 //@access   Private
 const fetchAnswer = asyncHandler(async(req,res) => {
-    const answers = await Answer.find()
-
+    const answers = await Answer.find({ question: req.body.findById})
     res.status(200).json(answers)
 })
 
@@ -14,10 +13,10 @@ const fetchAnswer = asyncHandler(async(req,res) => {
 //@route    POST /api/answer
 //@access   Private
 const addAnswer = asyncHandler(async(req,res) => {
-
+  
     if (!req.body.text) {
         res.status(400)
-        throw new Error('please add an answer')
+        throw new Error('please add an answer') 
     }
     const answer = await Answer.create({
         text: req.body.text,
@@ -52,7 +51,7 @@ const deleteAnswer = asyncHandler(async(req,res) => {
 
     if(!answer) {
         res.status(400)
-        throw new Error('Question not found')
+        throw new Error('Question not found') 
     }
 
     await answer.remove()
