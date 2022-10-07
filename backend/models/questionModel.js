@@ -9,13 +9,13 @@ const questionSchema = mongoose.Schema({
         //we need to know which model this object ID works with which is user
         ref:'User'
     },
-    answer: {
+    answers: [{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         //we need to know which model this object ID works with which is use
         ref:'Answer' 
         
-    },
+    }],
     text: {
     type: String,
     required: [true, 'Please add text value'],},
