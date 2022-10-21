@@ -1,17 +1,13 @@
-const express = require('express')
-const router = express.Router()
-const { 
-    fetchQuestion, 
-    fetchQuestions,  
-    addQuestions, 
-    deleteQuestion, 
-    updateQuestion } = require('../controllers/questionController')
+import { Router } from 'express'
+const router = Router()
+import { fetchQuestion, fetchQuestions, addQuestions, deleteQuestion, updateQuestion } from '../controllers/questionController'
 
-const {protect} = require('../middleware/authMiddleware')
+import { protect } from '../middleware/authMiddleware'
+'../middleware/authMiddleware'.default
 
 router.route('/:id').get(protect, fetchQuestion).put(protect, updateQuestion).delete(protect, deleteQuestion)
 
 
 router.route('/').get(protect, fetchQuestions).post(protect, addQuestions)
       
-module.exports = router
+export default router

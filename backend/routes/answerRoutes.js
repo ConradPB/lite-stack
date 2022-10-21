@@ -1,12 +1,9 @@
-const express = require('express')
-const router = express.Router()
-const { 
-    fetchAnswer, 
-    addAnswer, 
-    updateAnswer, 
-    deleteAnswer } = require('../controllers/answerController')
+import { Router } from 'express'
+const router = Router()
+import { fetchAnswer, addAnswer, updateAnswer, deleteAnswer } from '../controllers/answerController'
 
-const { protect } = require('../middleware/authMiddleware')
+import { protect } from '../middleware/authMiddleware'
+'../middleware/authMiddleware'.default
 
 router.route('/').get(protect, fetchAnswer) .post(protect, addAnswer)
         
@@ -14,4 +11,4 @@ router.route('/:id').put(protect, updateAnswer).delete(protect, deleteAnswer)
 
 
 
-module.exports = router
+export default router

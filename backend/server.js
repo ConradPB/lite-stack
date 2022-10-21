@@ -1,22 +1,24 @@
-const express = require('express')
-const colors = require('colors')
-const dotenv =  require('dotenv').config()
-const { errorHandler } = require('./middleware/errorMiddleware')
-const connectDB = require('./config/db')
+import express, { json, urlencoded } from 'express'
+import colors from 'colors'
+import dotenv from 'dotenv'
+import { errorHandler } from './middleware/errorMiddleware'
+import connectDB from './config/db'
 const port = process.env.PORT || 5000
+
+dotenv.config()
 
 connectDB()
 
 const app = express()
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(json())
+app.use(urlencoded({ extended: false }))
 
-app.use('/api/questions', require('./routes/questionRoutes'))
+app.use('/api/questions', import ('./routes/questionRoutes').default)
 
-app.use('/api/answers', require('./routes/answerRoutes'))
+app.use('/api/answers', import ('./routes/answerRoutes'))
 
-app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/users', import ('./routes/userRoutes').default)
 
 
 app.use(errorHandler)

@@ -1,16 +1,16 @@
-const mongoose = require('mongoose')
+import { Schema, model } from 'mongoose'
 
-const answer = require('../models/answerModel')
+import answer from '../models/answerModel'
 
-const questionSchema = mongoose.Schema({
+const questionSchema = Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         required: true,
         //we need to know which model this object ID works with which is user
         ref:'User'
     },
     answers: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         required: true,
         //we need to know which model this object ID works with which is use
         ref:'Answer' 
@@ -23,4 +23,4 @@ const questionSchema = mongoose.Schema({
     timestamps: true, 
 },)
 
-module.exports = mongoose.model('Question',questionSchema) 
+export default model('Question',questionSchema) 

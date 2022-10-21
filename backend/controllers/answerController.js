@@ -1,11 +1,11 @@
-const asyncHandler = require('express-async-handler')
-const Answer = require('../models/answerModel')
+import asyncHandler from 'express-async-handler'
+import { find, create, findById, findByIdAndUpdate } from '../models/answerModel'
 
 //@desc     Get answer
 //@route    GET /api/answer
 //@access   Private
 const fetchAnswer = asyncHandler(async(req,res) => {
-    const answers = await Answer.find({ question: req.body.findById})
+    const answers = await find({ question: req.body.findById})
     res.status(200).json(answers)
 })
 
@@ -18,7 +18,7 @@ const addAnswer = asyncHandler(async(req,res) => {
         res.status(400)
         throw new Error('please add an answer') 
     }
-    const answer = await Answer.create({
+    const answer = await create({
         text: req.body.text,
     })
 
@@ -30,14 +30,14 @@ const addAnswer = asyncHandler(async(req,res) => {
 //@access   Private
 const updateAnswer = asyncHandler(async(req,res) => {
 
-    const answer = await Answer.findById(req.params.id)
+    const answer = await findById(req.params.id)
 
     if(!answer) {
         res.status(400)
         throw new Error('Answer not found')
     }
 
-    const updatedAnswer = await Answer.findByIdAndUpdate(req.params.id, req.body, {
+    const updatedAnswer = await findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     })
     res.status(200).json(updatedAnswer)
@@ -47,7 +47,7 @@ const updateAnswer = asyncHandler(async(req,res) => {
 //@route    DELETE /api/answer
 //@access   Private
 const deleteAnswer = asyncHandler(async(req,res) => {
-    const answer = await Answer.findById(req.params.id)
+    const answer = await findById(req.params.id)
 
     if(!answer) {
         res.status(400)
@@ -60,7 +60,7 @@ const deleteAnswer = asyncHandler(async(req,res) => {
 
 
 
-module.exports = {
+export default {
     fetchAnswer,
     addAnswer,
     updateAnswer,

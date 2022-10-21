@@ -1,11 +1,9 @@
-const express = require('express')
-const router = express.Router()
+import { Router } from 'express'
+const router = Router()
 
-const { 
-    registerUser, 
-    loginUser, 
-    getMe } = require('../controllers/userController')
-const { protect } = require('../middleware/authMiddleware')
+import { registerUser, loginUser, getMe } from '../controllers/userController'
+import { protect } from '../middleware/authMiddleware'
+'../middleware/authMiddleware'.default
 
 //Lets add or register a user with a POST 
 //and call our controller fn for registerUser
@@ -13,4 +11,4 @@ router.post('/', registerUser)
 router.post('/login', loginUser)
 router.get('/me', protect,  getMe)
 
-module.exports = router
+export default router

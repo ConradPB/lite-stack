@@ -1,8 +1,8 @@
-const mongoose = require('mongoose')
+import { Schema, model } from 'mongoose'
 
-const answerSchema = mongoose.Schema({
+const answerSchema = Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         required: true,
         //we need to know which model this object ID works with which is use
         ref:'User' 
@@ -16,4 +16,4 @@ const answerSchema = mongoose.Schema({
     timestamps: true,  
 })
  
-module.exports = mongoose.model('Answer',answerSchema) 
+export default model('Answer',answerSchema) 

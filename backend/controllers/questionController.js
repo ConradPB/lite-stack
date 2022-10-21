@@ -1,7 +1,7 @@
-const asyncHandler = require('express-async-handler')
-const Question = require('../models/questionModel')
-const User = require('../models/userModel')
-const Answer = require('../models/answerModel')
+import asyncHandler from 'express-async-handler'
+import { find, create, findById, findByIdAndUpdate } from '../models/questionModel'
+import { findById as _findById } from '../models/userModel'
+import Answer from '../models/answerModel'
 
 //@desc     Get question
 //@route    GET /api/questions
@@ -16,7 +16,7 @@ const fetchQuestion = asyncHandler(async (req,res) => {
 //@access   Private
 const fetchQuestions = asyncHandler(async (req,res) => { 
 //use find method by somethin e.g user object. here we get all
-    const questions = await Question.find({ user: req.user._id }) 
+    const questions = await find({ user: req.user._id }) 
      
 
     res.status(200).json(questions, answers)
@@ -32,7 +32,7 @@ const addQuestions = asyncHandler(async (req,res) => {
         throw new Error('please add a question') 
     }
 //if text is found we use create method to create question  
-    const question = await Question.create({
+    const question = await create({
         text: req.body.text,
         user: req.user.id
     })
@@ -46,7 +46,7 @@ const addQuestions = asyncHandler(async (req,res) => {
 //@access   Private
 const updateQuestion = asyncHandler(async (req,res) => {
 //we first find the question we need to update using the findById method
-    const question = await Question.findById(req.params.id)
+    const question = await findById(req.params.id)
 
 //we check to make sure we have the id. If its not there we throw error
     if(!question) {
@@ -54,7 +54,7 @@ const updateQuestion = asyncHandler(async (req,res) => {
         throw new Error('Question not found')
     }
 //Lets get the user
-const user = await User.findById(req.user.id)
+const user = await _findById(req.user.id)
 
 //Check for user
 if(!user) {
@@ -69,7 +69,7 @@ if(question.user.toString() !== user.id) {
 }
 
 //to update a question we use the findByIdAndUpdate method and pass in our id and 2 other arguments
-    const updatedQuestion = await Question.findByIdAndUpdate(req.params.id, req.body, {
+    const updatedQuestion = await findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     })
     res.status(200).json(updatedQuestion)
@@ -81,7 +81,7 @@ if(question.user.toString() !== user.id) {
 const deleteQuestion = asyncHandler(async (req,res) => {
 //to delete a question we first find the question we want to delete 
 
-    const question = await Question.findById(req.params.id)
+    const question = await findById(req.params.id)
 
     if(!question) {
         res.status(400)
@@ -89,7 +89,7 @@ const deleteQuestion = asyncHandler(async (req,res) => {
     }
 
 //Lets get the user
-const user = await User.findById(req.user.id)
+const user = await _findById(req.user.id)
 
 //Check for user
 if(!user) {
@@ -109,7 +109,7 @@ if(question.user.toString() !== user.id) {
     res.status(200).json({ id: req.params.id })
 })
 
-module.exports = {
+export default {
     fetchQuestion,
     fetchQuestions,
     addQuestions,
